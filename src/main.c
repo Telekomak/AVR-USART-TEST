@@ -36,9 +36,12 @@ void usart_init(uint32_t baud)
     UBRR0H = (baud & 0x0F00) >> 8;
     UBRR0L = (baud & 0x00FF);
 
-    UCSR0B = 0x98;
+    //UCSR0B = 0x98;
     //UCSR0C = 0x46;
 
+    UCSR0B = (1 << RXCIE0) | (1 << RXEN0) | (1 << TXEN0);
+    //UCSR0B = (1 << TXEN0);
+    UCSR0C = (1 << UCSZ00) | (1 << UCSZ01);
 }
 
 void usart_write()
